@@ -10,8 +10,7 @@ pipeline {
     stages{
         stage('Update latest tag in kubernetes deployment file in jenkins local worskpace'){
             steps{
-                script{
-                    //echo "=== ${VERSION} ==="
+                script{                    
                     sh """
                         cat deploymentservice.yaml
                         sed -i 's+fitoni/mrdevops-gitops.*+fitoni/mrdevops-gitops:${VERSION}+g' deploymentservice.yaml
@@ -21,7 +20,7 @@ pipeline {
             }
         }
 
-       /*  stage('Push updated kubernetes deployment file onto GitHub'){
+        stage('Push updated kubernetes deployment file onto GitHub'){
             steps{
                 script{
                     withCredentials([usernamePassword(credentialsId: 'github-account', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
@@ -35,6 +34,6 @@ pipeline {
                     }                    
                 }
             }
-        } */
+        } 
     }
 }
