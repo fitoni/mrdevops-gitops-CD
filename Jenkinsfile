@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    parameters {
+        string(defaultValue: "", description: '', name: 'BUILDNUMBER')
+    }
     environment{
         VERSION = "${BUILDNUMBER}"
     }
@@ -8,7 +11,7 @@ pipeline {
         stage('Update latest tag in kubernetes deployment file in jenkins local worskpace'){
             steps{
                 script{
-                    echo "${VERSION}"
+                    echo "=== ${VERSION} ==="
                    /*  sh """
                         cat deploymentservice.yaml
                         sed -i 's+fitoni/mrdevops-gitops.*+fitoni/mrdevops-gitops:${VERSION}+g' deploymentservice.yaml
